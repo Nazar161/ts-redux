@@ -4,7 +4,9 @@ export interface TodoState {
     error: null | string;
     page: number;
     limit: number;
-    changingLimit: number
+    changingLimit: number;
+    totalCountTodos: number;
+    totalCountPages: number
 }
 
 export enum TodoActionTypes {
@@ -22,7 +24,8 @@ interface FetchTodoAction {
 
 interface FetchTodoSuccessAction {
     type: TodoActionTypes.FETCH_TODOS_SUCCESS,
-    payload: any[]
+    payload: any[],
+    payload2: number
 }
 
 interface FetchTodoErrorAction {

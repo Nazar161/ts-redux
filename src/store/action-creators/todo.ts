@@ -10,7 +10,8 @@ export const fetchTodos = (page=1, limit=10) => {
             const res = await axios.get('https://jsonplaceholder.typicode.com/todos', {
                 params: {_page: page, _limit: limit}
             })
-            dispatch({type: TodoActionTypes.FETCH_TODOS_SUCCESS, payload: res.data})
+            const totalCount = res.headers['x-total-count']
+            dispatch({type: TodoActionTypes.FETCH_TODOS_SUCCESS, payload: res.data, payload2: totalCount})
         }catch (e) {
             dispatch({type: TodoActionTypes.FETCH_TODOS_ERROR, payload: 'Ошибка'})
         }

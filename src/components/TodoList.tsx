@@ -4,9 +4,15 @@ import {fetchTodos} from "../store/action-creators/todo";
 import {useActions} from "../hooks/useActions";
 
 const TodoList:React.FC = () => {
-    const {error, loading, todos, page, limit, changingLimit} = useTypedSelector(state => state.todo)
+    const {error, loading, todos, page, limit, changingLimit, totalCountPages} = useTypedSelector(state => state.todo)
     const {fetchTodos, setTodoPage, setTodoLimit, changingTodoLimit} = useActions()
-    const pages = [1, 2, 3, 4, 5]
+    // const pages = [1, 2, 3, 4, 5]
+    let pages:number[] = []
+
+    for (let i = 0; i < totalCountPages; i++) {
+        pages.push(i+1)
+    }
+
 
     const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         changingTodoLimit(+e.target.value)
@@ -36,6 +42,7 @@ const TodoList:React.FC = () => {
                 <div style={{display: "flex"}}>
                     {pages.map(p =>
                         <div
+                            key={p}
                             onClick={() => setTodoPage(p)}
                             style={{border:p === page ? '2px solid green' : '1px solid gray', padding: 10}}
                         >
